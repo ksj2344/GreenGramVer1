@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user")
+@RequestMapping("api/user")
 public class UserController {
     private final UserService service;
 
@@ -24,8 +24,8 @@ public class UserController {
     @PostMapping("sign-up")
     @Operation(summary = "회원 가입")
     public ResultResponse<Integer> signUp(@RequestPart UserInsReq p
-                                         ,@RequestPart MultipartFile pic){
-        log.info("UserInsReq:{}, file:{}", p, pic.getOriginalFilename());
+                                         ,@RequestPart(required = false) MultipartFile pic){
+        log.info("UserInsReq:{}, file:{}", p, pic !=null? pic.getOriginalFilename():null);
         int result= service.postSignUp(pic,p);
         return ResultResponse.<Integer>builder()
                 .resultMessage("회원가입 완료")

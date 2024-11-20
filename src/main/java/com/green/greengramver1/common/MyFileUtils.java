@@ -46,7 +46,6 @@ public class MyFileUtils {
 
     //랜덤파일명+확장자 생성
     public String makeRandomFileName(String originalFileName){
-
         return makeRandomFileName()+getExt(originalFileName);
     }
 
