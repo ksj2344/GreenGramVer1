@@ -1,18 +1,32 @@
+# custom property (절대경로 Absolute Path)
+file:
+  directory: D:/ksj/download/greengram_ver1  # /쓰던가 \쓰던가 상관없지만 \는 윈도우에서만 먹힌다. 섞어도 상관없음.
+
 mybatis:
   mapper-locations: xml/**/*.xml
 
 spring:
   application:
     name: GreenGramVer1
+  #DB Setting
   datasource:
-    url: jdbc:mariadb://localhost/greengram_ver1
+    url: jdbc:mariadb://localhost:3306/greengram_ver1 # 기본포트3306
     username: root
     password: green502
+  #File Size Setting
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
 
 springdoc:
   api-docs:
-    version: openapi_3_0
+    version: openapi_3_0 #3_0쓸거면 생략 가능, 3_1이 최적화엔 좋음
   swagger-ui:
     default-model-expand-depth: 10
-    default-models-expand-depth: -1
+    display-request-duration: true
+    operations-sorter: method
     path: /swagger
+  cache:
+    disable: true
+    #캐시: 컴퓨터에 이미 다운로드 되어있는 자료를 다시 다운받지않고 불러와서 속도를 높힘. 그러나 여기선 오히려 속도를 늦추므로 disable화

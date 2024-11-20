@@ -24,7 +24,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.mindrot:jbcrypt:0.4'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc' //swagger PE와 BE간에 통신하려고하는거지 풀스택이면 필요없음
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
