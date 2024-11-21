@@ -31,14 +31,19 @@ public class MyFileUtils {
         file.mkdirs(); //mkdir 메소드는 파일안에 파일까지는 감지불가
         return file.getAbsolutePath();
     }
-    //makeFolders 메소드 안씀.
 
     //파일명에서 확장자 추출
     public String getExt(String fileName){
         int lastIdx = fileName.lastIndexOf(".");
         return fileName.substring(lastIdx);
-    }
+    } //substring 원본에서 잘라내어 새로운 문자열 만들어서 리턴
 
+    /*
+        이렇게 하는 사유.
+        웹서비스상 영어와 숫자로 조합된 파일명을 써야하므로
+        그 규칙에 맞추어 바꿔서 저장해야함.
+        단, 확장자는 유지하면서.
+    */
     //랜덤파일명 생성
     public String makeRandomFileName(){
         return UUID.randomUUID().toString();
@@ -50,6 +55,7 @@ public class MyFileUtils {
     }
 
     //MultipartFile 인터페이스의 getOriginalFilename() 구현은 Spring이 알아서 해줌
+    //getOriginalFilename() : 내가 올린 원래의 파일 이름
     public String makeRandomFileName(MultipartFile file){
         return makeRandomFileName(file.getOriginalFilename());
     }
@@ -58,12 +64,5 @@ public class MyFileUtils {
     public void transferTo(MultipartFile mf, String path) throws IOException {
         File file = new File(uploadPath, path);
         mf.transferTo(file);
-    }
-}
-
-class Test{
-    public static void main(String[] args) {
-        MyFileUtils myFileUtils = new MyFileUtils("C:/temp");
-        System.out.println(myFileUtils.makeRandomFileName("707211_1532672215.jpg"));
     }
 }

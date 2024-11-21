@@ -12,4 +12,12 @@
             pic=#{pic}
     </insert>
 
+    <!-- ID나 PW가 틀렸는지 비교를 할 때 WHERE이후에 ID와 PW을 한꺼번에 검증하면 안됨
+        먼저 ID가 맞는지 검증하고 후에 Service단계에서 PW를 검증하여야함.-->
+    <select id="selUserForSignIn">
+        SELECT user_id As userId, nick_Name As nickName, pic, upw
+          FROM user
+        WHERE uid = #{uid}
+    </select>
+
 </mapper>

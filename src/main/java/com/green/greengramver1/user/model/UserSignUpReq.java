@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Setter
-public class UserInsReq {
+public class UserSignUpReq {
     @Schema(description = "유저 아이디", example = "mic", requiredMode = Schema.RequiredMode.REQUIRED)
     private String uid;
     @Schema(description = "유저 비밀번호", example = "1212", requiredMode = Schema.RequiredMode.REQUIRED)
