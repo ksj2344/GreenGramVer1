@@ -15,8 +15,9 @@ public class MyFileUtils {
     private final String uploadPath;
 
     /*
-        @Value("${file.directory}"은
+        @Value("${file.directory}")은
         yaml 파일에 있는 file.directory 속성에 저장된 값을 생성자 호출할 때 값을 넣어준다.
+        @Value가 uploadPath에 DI 할 수 있게 해준 것.
      */
     public MyFileUtils(@Value("${file.directory}") String uploadPath) {
         log.info("MyFileUtils - 생성자: {}", uploadPath);
@@ -27,8 +28,13 @@ public class MyFileUtils {
     // D:/ksj/download/greengram_ver1/ddd/aaa  이렇게 경로가 덧붙여진 파일 만들어줌.
     // 디렉토리 생성
     public String makeFolders(String path){
-        File file = new File(uploadPath, path);
-        file.mkdirs(); //mkdir 메소드는 파일안에 파일까지는 감지불가
+        File file = new File(uploadPath, path);  //생성자가 두개있어서 uploadPath+"/"+path해도됨
+        if(!file.exists()){ //.exists()는 파일이 존재하면 ture를 리턴. 아니면 false를 리턴
+            file.mkdirs();
+            //mkdir 메소드는 파일안에 파일까지는 감지불가하여 mkdirs를 쓴다.
+        }
+        //.mkdirs() 는 file 객체로 지정된 파일 경로상 해당 파일이 없다 싶으면 만들어줌.
+        // 확장자가 있다면 파일로 인식. 아니라면 디렉토리로 인식한다.
         return file.getAbsolutePath();
     }
 
@@ -64,5 +70,6 @@ public class MyFileUtils {
     public void transferTo(MultipartFile mf, String path) throws IOException {
         File file = new File(uploadPath, path);
         mf.transferTo(file);
+        //여기 있는 transferTo는 어딘가에 MultipartFile 인터페이스가 구현화된 클래스의 메소드
     }
 }

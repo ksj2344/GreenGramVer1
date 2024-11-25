@@ -30,7 +30,7 @@ public class UserService {
         log.info("hashedPassword:{}",hashedPassword);
         p.setUpw(hashedPassword);
 
-        int result=mapper.insUser(p); //userId에 값 보내려면 일단 여기서 먼저 insUser 호출하여야함. 리턴되는값: 영향받은행(0or1)
+        int result=mapper.insUser(p); //userId에 값 보내려면 일단 여기서 먼저 insUser 호출하여야함. 리턴되는값: 영향받은 행(0 or 1)
         if(pic ==null){ return result; } //pic이 null이라면 아래 과정 실행하지 않음.
 
         // 저장위치/파일명 만들기

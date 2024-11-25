@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.ToString;
 
+// @Setter가 있으면 spring이 생성자보다 Setter를 우선하여 인식한다.
+// 그래서 @Setter가 있으면 생성자로 size 20을 넣어줘도 setter를 먼저 인식해서 size를 0으로 인식함
 @Getter
 @ToString
 public class Paging {
@@ -15,4 +17,14 @@ public class Paging {
 
     @JsonIgnore
     private int startIdx;
+
+    //@JsonIgnore 안써도 final이라서 굳이 프론트에 안뜸
+    //사실 이런식으로 final static으로 값을 지정할거면 yaml에 지정하는게 나음.
+    private final static int DEFAULT_PAGE_SIZE = 20;
+
+    public Paging(Integer page, Integer size) {
+        this.page = (page==null||page<=0)? 1:page;
+        this.size = (size==null||size<=0)? DEFAULT_PAGE_SIZE:size;
+        this.startIdx = (this.page - 1) * this.size;
+    }
 }

@@ -10,9 +10,30 @@
          , location=#{location}
     </insert>
 
+    <select id="selFeedList">
+        SELECT F.feed_id AS feedId, U.user_id AS writerId,
+        if(U.nick_name IS NULL, U.uid, U.nick_name) AS writerNm,
+        U.pic AS writerPic, F.contents, F.location, F.created_at AS createdAt
+        FROM feed F
+        INNER JOIN user U
+        ON writer_user_id = user_id
+        ORDER BY feed_id DESC
+        LIMIT #{startIdx}, #{size}
+    </select>
+
+
+    <!-- feed_pics mapping -->
+
     <insert id="insFeedPic">
         INSERT INTO feed_pics
         SET feed_id=#{feedId}
             , pic= #{pic}
     </insert>
+
+
+    <select id="selFeedPicList">
+        SELECT pic
+        FROM feed_pics
+        WHERE feed_id=#{feedId}
+    </select>
 </mapper>

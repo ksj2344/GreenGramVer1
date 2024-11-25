@@ -39,7 +39,7 @@ public class FeedService {
                 e.printStackTrace();
             }
             feedPicDto.setPic(savedPicName);
-            mapper.insFeedPic(feedPicDto);
+            mapper.insFeedPic(feedPicDto); //두개의 테이블에 저장해야해서 매퍼가 두번 필요
 
             picture.add(savedPicName);
         }
@@ -47,5 +47,16 @@ public class FeedService {
         res.setFeedId(p.getFeedId());
         res.setPics(picture);
         return res;
+    }
+
+    public List<FeedGetRes> getFeedList(FeedGetReq p){
+        List<FeedGetRes> list= mapper.selFeedList(p);
+
+        for(FeedGetRes res : list){
+            //DB에서 각 피드에 맞는 사진 정보를 가져온다.
+            List<String> picList=mapper.selFeedPicList(res.getFeedId());
+            res.setPics(picList);
+        }
+        return list;
     }
 }
