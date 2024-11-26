@@ -31,11 +31,11 @@ public class FeedController {
                 .resultData(res)
                 .build();
     }
-    //QueryString: URL?KEY=Value
+    //QueryString: URL?KEY=Value   ※ 주의할 점은 빈칸을 두면 안됨. 빈칸 또한 값이기 때문에 오류 발생. 애초에 URL에는 빈칸을 안씀.
     @GetMapping
     public ResultResponse<List<FeedGetRes>> getFeedList(@ParameterObject @ModelAttribute FeedGetReq p) {
         //@ParameterObject: Swagger에서 쓰는 @RequestParam
-        //쿼리스트링 쓰려면 @ModelAttribute, 그러나 이건 생략가능.
+        //쿼리스트링 쓰려면 @ModelAttribute을 써야함(혹은 FormData), 그러나 이건 생략가능.
         log.info("p:{}",p);
 
         List<FeedGetRes> list=service.getFeedList(p);

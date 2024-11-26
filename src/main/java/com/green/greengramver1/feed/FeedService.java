@@ -56,7 +56,11 @@ public class FeedService {
             //DB에서 각 피드에 맞는 사진 정보를 가져온다.
             List<String> picList=mapper.selFeedPicList(res.getFeedId());
             res.setPics(picList);
-        }
+        } //mapper메소드(select로 가져온 pic들)를 res(각 FeedGetRes의 주소를 복사한 레퍼런스변수)의 Pics 멤버필드에 저장.
         return list;
     }
+    /*
+        여기서 getFeedList는 몇번 셀렉트 하게 될까? 최초의 셀렉 한번+피드의 갯수, 즉 1+N이슈가 발생하여 성능이 저하된다.
+        최대한 셀렉트를 줄이는 것이 개발자가 해결할 과제이다.
+     */
 }
