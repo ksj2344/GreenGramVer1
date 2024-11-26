@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
+@Getter
 @Setter
 public class UserSignUpReq {
     @Schema(description = "유저 아이디", example = "mic", requiredMode = Schema.RequiredMode.REQUIRED)

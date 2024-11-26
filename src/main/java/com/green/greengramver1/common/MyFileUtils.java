@@ -27,7 +27,7 @@ public class MyFileUtils {
     // path="ddd/aaa"
     // D:/ksj/download/greengram_ver1/ddd/aaa  이렇게 경로가 덧붙여진 파일 만들어줌.
     // 디렉토리 생성
-    public String makeFolders(String path){
+    public void makeFolders(String path){
         File file = new File(uploadPath, path);  //생성자가 두개있어서 uploadPath+"/"+path해도됨
         if(!file.exists()){ //.exists()는 파일이 존재하면 ture를 리턴. 아니면 false를 리턴
             file.mkdirs();
@@ -35,7 +35,6 @@ public class MyFileUtils {
         }
         //.mkdirs() 는 file 객체로 지정된 파일 경로상 해당 파일이 없다 싶으면 만들어줌.
         // 확장자가 있다면 파일로 인식. 아니라면 디렉토리로 인식한다.
-        return file.getAbsolutePath();
     }
 
     //파일명에서 확장자 추출

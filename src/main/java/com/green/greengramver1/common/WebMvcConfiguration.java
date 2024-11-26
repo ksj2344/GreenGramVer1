@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //@Component도 가능 하다.
 public class WebMvcConfiguration implements WebMvcConfigurer {
     private final String uploadPath;
-    //MyFileUtils에서 했던 것 처럼 생성자 파일 경로 설정
+    //MyFileUtils에서 했던 것 처럼 생성자로 파일 경로 설정
     public WebMvcConfiguration(@Value("${file.directory}") String uploadPath) {
         this.uploadPath = uploadPath;
     }
@@ -21,10 +21,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/pic/**").addResourceLocations("file:" + uploadPath+"/");
     }
+    // 서버에 /pic/파일명.jpg 로 요청하면 /${file.directory}/파일명.jpg로 인식하도록 하겠다.
+    // /pic은  /${file.directory}(=D:/ksj/download/greengram_ver1) 이다.
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        //RestController 에노테이션을 붙인 클래스의 모든 URL에 "/api" prefix를 설정
+        //RestController 에노테이션을 붙인 클래스의 모든 URL에 "/api" prefix(경로)를 설정
         configurer.addPathPrefix("api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
 }
